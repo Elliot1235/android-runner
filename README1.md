@@ -27,7 +27,7 @@ As visualized below, Android Runner consists of the following components:
 - [Methods to imitate human hands to automatically click screen and move the screen](#structure)
   - [tap function](#devicesjson)
   - [swip function](#experiment-configuration)
-- [Plugin Profilers](#plugin-profilers)
+- [Experiment Continuation](#plugin-profilers)
 - [Compatible Devices](#compatible-devices)
 
 ## The virtual environment
@@ -65,7 +65,7 @@ def tap(device:Device, x, y) -> None:  # x is the abscissa y is the ordinate
 Create the swip function in the interaction.py to auctomatically move the screen from one specific coordinate to another
 
 ```interaction.py
-#def swip(device:Device, x1, y1, x2, y2)-> None:
+def swip(device:Device, x1, y1, x2, y2)-> None:
     #device.shell('input swip %s %s %s %s' % (x1,y1,x2,y2))  # x1, y1: Starting coordinates of the swipe. x2, y2: Ending coordinates of the swipe.
     #time.sleep(2)
 ```
@@ -73,7 +73,7 @@ Create the swip function in the interaction.py to auctomatically move the screen
 ## Methods to open the subjects automatically
 Step1. Create the function to open the specific  browser and the URL in the interaction.py
 
-```interactio.py
+```interaction.py
 def open_chrome_canary(device:Device, url: str) -> None:
     chrome_canary_package_name = 'com.chrome.canary'
     device.shell(f'am start -a android.intent.action.VIEW -d {url} -n "chrome_canary_package_name/com.google.android.apps.chrome.Main"')
