@@ -1,7 +1,7 @@
 {
   "type": "plugintest",
   "devices": {
-    "nexus6p": {}
+    "j7duo2": {}
   },
   "profilers":{
     "AndroidPlugin": {

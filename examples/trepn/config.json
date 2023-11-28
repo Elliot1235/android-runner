@@ -1,23 +1,21 @@
 {
   "type": "native",
   "devices": {
-    "j7duo2": {}
+    "pixel5g": {}
   },
   "repetitions": 1,
-  "duration": 5000,
+  "duration": 50000,
   "apps": [
-    "com.samsung.android.messaging"
+    "com.chrome.canary"
   ],
   "profilers": {
     "trepn": {
-      "subject_aggregation": "default",
-      "experiment_aggregation": "Scripts/aggregate_trepn.py",
       "preferences": {
         "profiling_interval": 100,
-        "battery_power_source_selection": "Direct Power"
+        "battery_power_source_selection": "Estimate Power Consumption"
       },
       "data_points": [
-        "battery_power"
+         "mem_usage"
       ]
     }
   },

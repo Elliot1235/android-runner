@@ -12,7 +12,7 @@ from AndroidRunner.PrematureStoppableRun import PrematureStoppableRun
 class WebExperiment(Experiment):
     def __init__(self, config, progress, restart):
         super(WebExperiment, self).__init__(config, progress, restart)
-        self.browsers = [BrowserFactory.get_browser(b)() for b in config.get('browsers', ['chrome'])]
+        self.browsers = [BrowserFactory.get_browser(b)() for b in config.get('browsers', ['ChromeCanary'])]
         Tests.check_dependencies(self.devices, [b.package_name for b in self.browsers])
         self.duration = Tests.is_integer(config.get('duration', 0)) / 1000
 

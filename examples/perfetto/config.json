@@ -1,13 +1,12 @@
 {
   "type": "native",
   "devices": {
-    "pixel3": {}
+    "pixel5g": {}
   },
-  "repetitions": 5,
+  "repetitions": 1,
   "duration": 6000,
   "apps": [
-    "com.google.android.apps.messaging"
-
+    "com.chrome.canary"
   ],
   "profilers": {
     "perfetto": {

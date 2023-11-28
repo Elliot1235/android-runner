@@ -18,7 +18,7 @@ class Android(Profiler):
         self.output_dir = ''
         self.paths = paths
         self.profile = False
-        available_data_points = ['cpu', 'mem']
+        available_data_points = ['cpu', 'mem','Cpu_mem','GPU_mem','cpu_clockspeed']
         self.interval = float(Tests.is_integer(
             config.get('sample_interval', 0))
         ) / 1000
@@ -60,6 +60,26 @@ class Android(Profiler):
                 if 'No process found' in result:
                     raise Exception('Android Profiler: {}'.format(result))
             return ' '.join(result.strip().split()).split()[1]
+            
+    @staticmethod
+    def get_gpu_usage(device, package_name):
+        # command = f"adb shell dumpsys gfxinfo {package_name} | grep 'Total DisplayList'"
+        GPU_mem=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total CPU memory usage:'")
+        res = GPU_mem.split(',')[1].strip()
+        return res
+
+    @staticmethod
+    def get_gpu_memory_usage(device, package_name):
+        # command = f"adb shell dumpsys meminfo {package_name} | grep 'Graphics'"
+        GPU_mem_u=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total GPU memory usage:'")
+        res = GPU_mem_u.split(',')[1].strip()
+        return res
+
+    @staticmethod
+    def get_cpu_clockspeed(device):
+        # command = f"adb shell cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"
+        CPU_clock=device.shell(f'cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')
+        return CPU_clock
 
     def start_profiling(self, device, **kwargs):
         self.profile = True
@@ -80,6 +100,12 @@ class Android(Profiler):
             row.append(self.get_cpu_usage(device))
         if 'mem' in self.data_points:
             row.append(self.get_mem_usage(device, app))
+        if 'Cpu_mem' in self.data_points:
+            row.append(self.get_gpu_usage(device,app))
+        if 'GPU_mem' in self.data_points:
+            row.append(self.get_gpu_memory_usage(device, app))
+        if 'cpu_clockspeed' in self.data_points:
+            row.append(self.get_cpu_clockspeed(device))
         self.data.append(row)
         end = timeit.default_timer()
         # timer results could be negative

@@ -1,10 +1,10 @@
 {
   "type": "web",
   "devices": {
-    "nexus6p": {}
+    "pixel5g": {}
   },
   "repetitions": 1,
-  "duration": 60000,
+  "duration": 100000,
   "browsers": ["chrome"],
   "monkeyrunner_path": "/home/user/Android/Sdk/tools/bin/monkeyrunner",
   "systrace_path": "/home/user/Android/Sdk/platform-tools/systrace/systrace.py",

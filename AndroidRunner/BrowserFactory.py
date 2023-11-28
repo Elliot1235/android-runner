@@ -1,4 +1,4 @@
-from .Browsers import Chrome, Firefox, Opera
+from .Browsers import Chrome, Firefox, Opera,ChromeCanary, FirefoxNightly
 
 
 class BrowserFactory(object):
@@ -8,6 +8,10 @@ class BrowserFactory(object):
             return Chrome.Chrome
         if name == "firefox":
             return Firefox.Firefox
-        if name == "opera":
-            return Opera.Opera
+        if name == "ChromeCanary":
+            return ChromeCanary.ChromeCanary
+        if name == "FirefoxNightly":
+            return FirefoxNightly.FirefoxNightly
+	#if name == "opera":
+            #return Opera.Opera
         raise Exception("No Browser found")

@@ -1,17 +1,14 @@
 {
   "type": "web",
   "devices": {
-    "j7duo2": {}
+    "pixel5g": {}
   },
   "repetitions": 1,
-  "randomization": false,
   "browsers": [
     "firefox"
   ],
   "paths": [
-    "https://google.com/",
-    "https://apple.com/",
-    "https://wikipedia.com/"
+    "https://toji.github.io/webgpu-test/"
   ],
   "profilers": {
     "trepn": {
@@ -22,9 +19,9 @@
         "battery_power_source_selection": "Direct Power"
       },
       "data_points": [
-        "battery_remaining",
+        "cpu_load",
+        "cpu1_freq",
         "mem_usage",
-        "battery_power"
       ]
     }
   },
@@ -36,7 +33,7 @@
       {
         "type": "python3",
         "path": "Scripts/interaction.py",
-        "timeout": 500,
+        "timeout": 5000,
         "logcat_regex": "some keyword"
       }
     ],
@@ -44,5 +41,5 @@
     "after_run": "Scripts/after_run.py",
     "after_experiment": "Scripts/after_experiment.py"
   },
-  "time_between_run": 100
+  "time_between_run": 20000
 }
