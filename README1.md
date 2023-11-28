@@ -132,17 +132,17 @@ two adb statements are added to obtain data on GPU memory usage and CPU Clock sp
 
 ```GPU Memory Usage
 def get_gpu_memory_usage(device, package_name):
-        GPU_mem_u=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total GPU memory usage:'")
-        res = GPU_mem_u.split(',')[1].strip()
-        return res
+    GPU_mem_u=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total GPU memory usage:'")
+    res = GPU_mem_u.split(',')[1].strip()
+    return res
 
 ```
 
 
 ```CPU Clock Speed
 def get_cpu_clockspeed(device):
-        CPU_clock=device.shell(f'cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')
-        return CPU_clock
+    CPU_clock=device.shell(f'cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')
+    return CPU_clock
 
 ```
 Run the config.json to detect and save the data
