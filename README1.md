@@ -19,17 +19,17 @@ As visualized below, Android Runner consists of the following components:
 </p>
 
 # Table of Contents
-- [The virtual environment](#The virtual environment)
-- [Quick Start](#Quick-start)
-- [Methods to detect energy consumption](#setup)
-- [Methods to detect the performance](#quick-start)
-- [Methods to open the subjects automatic](#experiment-continuation)
-- [Methods to imitate human hands to automatically click screen and move the screen](#structure)
-  - [tap function](#devicesjson)
-  - [swip function](#experiment-configuration)
-- [Experiment Continuation](#plugin-profilers)
-- [Turn off charging function](#Turn off charging function)
+- [The virtual environment](#the-virtual-environment)
+- [Quick Start](#quick-start)
+- [Methods to detect energy consumption](#methods-to-detect-energy-consumption)
+- [Methods to detect performance](#methods-to-detect-performance)
+- [Methods to open the subjects automatically](#methods-to-open-the-subjects-automatically)
+  - [tap function](#tap-function)
+  - [swip function](#swip-function)
+- [Experiment Continuation](#experiment-continuation)
+- [Turn off charging function](#turn-off-charging-function)
 - [Compatible Devices](#compatible-devices)
+
 
 ## The virtual environment
  ```activate way
