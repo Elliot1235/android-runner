@@ -19,8 +19,8 @@ As visualized below, Android Runner consists of the following components:
 </p>
 
 # Table of Contents
-- [The virtual environment](## The virtual environment)
-- [Quick Start](## Quick-start)
+- [The virtual environment](#The virtual environment)
+- [Quick Start](#Quick-start)
 - [Methods to detect energy consumption](#setup)
 - [Methods to detect the performance](#quick-start)
 - [Methods to open the subjects automatic](#experiment-continuation)
@@ -28,6 +28,7 @@ As visualized below, Android Runner consists of the following components:
   - [tap function](#devicesjson)
   - [swip function](#experiment-configuration)
 - [Experiment Continuation](#plugin-profilers)
+- [Turn off charging function](#Turn off charging function)
 - [Compatible Devices](#compatible-devices)
 
 ## The virtual environment
@@ -197,7 +198,7 @@ adb shell "echo 1 > /sys/class/power_supply/battery/input_suspend"
 
 ```
 When input_suspend is 1, USB charging is disabled, and the current is found to be 0 using a USB monitor;
-When input_suspend is 0, USB charging is normal
+When input_suspend is 0, USB charging is normal.
 Note: This flag will be restored to 0 after Android restarts.
 
 ## Compatible Devices
