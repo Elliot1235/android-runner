@@ -21,14 +21,23 @@ As visualized below, Android Runner consists of the following components:
 # Table of Contents
 - [The virtual environment](#the-virtual-environment)
 - [Quick Start](#quick-start)
+- [Methods to imitate human hands to automatically click screen and move the screen](#methods-to-imitate-human-hands-to-automatically-click-screen-and-move-the-screen)
+  - [tap function](#tap-function)
+  - [swipe function](#swipe-function)
+- [Methods to open the subjects automatically](#methods-to-open-the-subjects-automatically)
 - [Methods to detect energy consumption](#methods-to-detect-energy-consumption)
 - [Methods to detect performance](#methods-to-detect-performance)
-- [Methods to open the subjects automatically](#methods-to-open-the-subjects-automatically)
-  - [tap function](#tap-function)
-  - [swip function](#swip-function)
 - [Experiment Continuation](#experiment-continuation)
 - [Turn off charging function](#turn-off-charging-function)
 - [Compatible Devices](#compatible-devices)
+
+## The virtual environment
+```bash
+activate way
+python -m venv kim  # create the virtual environment called kim
+cd ~  # to the package where you create the virtual environment
+source kim/bin/activate  # activate your virtual environment 
+
 
 
 ## The virtual environment
