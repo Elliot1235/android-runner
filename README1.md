@@ -37,14 +37,6 @@ activate way
 python -m venv kim  # create the virtual environment called kim
 cd ~  # to the package where you create the virtual environment
 source kim/bin/activate  # activate your virtual environment 
-
-
-
-## The virtual environment
- ```activate way
- python -m venv kim #create the virtual environment called kim
- cd ～   #to the package where you create the virtual environment
- source kim/bin/activate  #activate your virtual environment 
  ```
 
 ## Quick Start
@@ -53,11 +45,6 @@ To run an experiment, run:
 python3 android-runner path_to_your_config.json
 ```
 Example configuration files can be found in the subdirectories of the `examples` directory.
-
-To run an experiment to detect the performance run:
-```bash
-python3 android-runner android-runner/examples/performance/config.json
-```
 
 ## Methods to imitate human hands to automatically click screen and move the screen
 ### tap
