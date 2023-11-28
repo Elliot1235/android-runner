@@ -18,7 +18,7 @@ class Android(Profiler):
         self.output_dir = ''
         self.paths = paths
         self.profile = False
-        available_data_points = ['cpu', 'mem','Cpu_mem','GPU_mem','cpu_clockspeed']
+        available_data_points = ['cpu', 'mem','GPU_mem','cpu_clockspeed']
         self.interval = float(Tests.is_integer(
             config.get('sample_interval', 0))
         ) / 1000
@@ -61,12 +61,6 @@ class Android(Profiler):
                     raise Exception('Android Profiler: {}'.format(result))
             return ' '.join(result.strip().split()).split()[1]
             
-    @staticmethod
-    def get_gpu_usage(device, package_name):
-        # command = f"adb shell dumpsys gfxinfo {package_name} | grep 'Total DisplayList'"
-        GPU_mem=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total CPU memory usage:'")
-        res = GPU_mem.split(',')[1].strip()
-        return res
 
     @staticmethod
     def get_gpu_memory_usage(device, package_name):
@@ -100,8 +94,6 @@ class Android(Profiler):
             row.append(self.get_cpu_usage(device))
         if 'mem' in self.data_points:
             row.append(self.get_mem_usage(device, app))
-        if 'Cpu_mem' in self.data_points:
-            row.append(self.get_gpu_usage(device,app))
         if 'GPU_mem' in self.data_points:
             row.append(self.get_gpu_memory_usage(device, app))
         if 'cpu_clockspeed' in self.data_points:
