@@ -18,9 +18,9 @@ As visualized below, Android Runner consists of the following components:
 <img src="./documentation/overview.jpg" alt="Overview of Android Runner" width="500"/>
 </p>
 
-## Table of Contents
-- [The virtual environment](# The virtual environment)
-- [Quick Start](#quick-start)
+# Table of Contents
+- [The virtual environment](## The virtual environment)
+- [Quick Start](## Quick-start)
 - [Methods to detect energy consumption](#setup)
 - [Methods to detect the performance](#quick-start)
 - [Methods to open the subjects automatic](#experiment-continuation)
@@ -30,7 +30,7 @@ As visualized below, Android Runner consists of the following components:
 - [Experiment Continuation](#plugin-profilers)
 - [Compatible Devices](#compatible-devices)
 
-# The virtual environment
+## The virtual environment
  ```activate way
  python -m venv kim #create the virtual environment called kim
  cd ～   #to the package where you create the virtual environment
