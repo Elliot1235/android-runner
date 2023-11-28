@@ -19,7 +19,7 @@ As visualized below, Android Runner consists of the following components:
 </p>
 
 ## Table of Contents
-- [The virtual environment](#how-to-cite-android-runner)
+- [The virtual environment](#how-to-cite-android-runne)
 - [Quick Start](#quick-start)
 - [Methods to detect energy consumption](#setup)
 - [Methods to detect the performance](#quick-start)
@@ -32,9 +32,9 @@ As visualized below, Android Runner consists of the following components:
 
 ## The virtual environment
  ```activate way
- python -m venv kim //create the virtual environment called kim
- cd ～ // to the package where you create the virtual environment
- source kim/bin/activate  //activate your virtual environment 
+ python -m venv kim #create the virtual environment called kim
+ cd ～   #to the package where you create the virtual environment
+ source kim/bin/activate  #activate your virtual environment 
  ```
 
 ## Quick Start
@@ -117,7 +117,7 @@ Step1： Download the apk（(https://github.com/S2-group/batterymanager-companio
 Step2:  Use adb commands install the application in the Android device
 
 ```
-adb device //check the connection
+adb device  #check the connection
 adb install <path to the apk>
 
 ```
