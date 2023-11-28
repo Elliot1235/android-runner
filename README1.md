@@ -19,7 +19,7 @@ As visualized below, Android Runner consists of the following components:
 </p>
 
 ## Table of Contents
-- [The virtual environment](#how-to-cite-android-runne)
+- [The virtual environment](# The virtual environment)
 - [Quick Start](#quick-start)
 - [Methods to detect energy consumption](#setup)
 - [Methods to detect the performance](#quick-start)
@@ -30,7 +30,7 @@ As visualized below, Android Runner consists of the following components:
 - [Experiment Continuation](#plugin-profilers)
 - [Compatible Devices](#compatible-devices)
 
-## The virtual environment
+# The virtual environment
  ```activate way
  python -m venv kim #create the virtual environment called kim
  cd ～   #to the package where you create the virtual environment
@@ -130,7 +130,7 @@ Based on the given performance plugin（https://github.com/S2-group/android-runn
 two adb statements are added to obtain data on GPU memory usage and CPU Clock speed.
 
 ```GPU Memory Usage
- def get_gpu_memory_usage(device, package_name):
+def get_gpu_memory_usage(device, package_name):
         GPU_mem_u=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total GPU memory usage:'")
         res = GPU_mem_u.split(',')[1].strip()
         return res
@@ -139,7 +139,7 @@ two adb statements are added to obtain data on GPU memory usage and CPU Clock sp
 
 
 ```CPU Clock Speed
- def get_cpu_clockspeed(device):
+def get_cpu_clockspeed(device):
         CPU_clock=device.shell(f'cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')
         return CPU_clock
 
@@ -148,7 +148,6 @@ Run the config.json to detect and save the data
 ```bash
 python3 android-runner android-runner/examples/performance/config.json
 ```
-
 **scripts** *JSON*
 A JSON list of types and paths of scripts to run. Below is an example:
 ```js
@@ -186,6 +185,20 @@ Below are the supported types:
 In case of an error or a user abort during experiment execution, it is possible to continue the experiment if desired. This is possible by using a ```--progress``` tag with the starting command. For example:
 
 ```python3 android_runner your_config.json --progress path/to/progress.xml```
+
+## Turn off charging function
+During the test, in order to avoid data errors caused by charging, it is necessary to connect the USB and turn off the charging function.
+There are two ways to operate: 
+1. You can connect the USB cable for power supply and communication independently, and turn off charging before the experiment by modifying the developer options on the phone.
+2. The USB charging function can be turned off through commands without affecting the communication function.
+
+```
+adb shell "echo 1 > /sys/class/power_supply/battery/input_suspend"
+
+```
+When input_suspend is 1, USB charging is disabled, and the current is found to be 0 using a USB monitor;
+When input_suspend is 0, USB charging is normal
+Note: This flag will be restored to 0 after Android restarts.
 
 ## Compatible Devices
 The table below shows on which mobile devices Android Runner and its profilers were tested and whether there are any known issues.
