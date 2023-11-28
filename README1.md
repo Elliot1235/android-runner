@@ -20,17 +20,22 @@ As visualized below, Android Runner consists of the following components:
 
 ## Table of Contents
 - [The virtual environment](#how-to-cite-android-runner)
+- [Quick Start](#quick-start)
 - [Methods to detect energy consumption](#setup)
 - [Methods to detect the performance](#quick-start)
+- [Methods to open the subjects automatic](#experiment-continuation)
 - [Methods to imitate human hands to automatically click screen and move the screen](#structure)
   - [tap function](#devicesjson)
   - [swip function](#experiment-configuration)
 - [Plugin Profilers](#plugin-profilers)
-- [Experiment Continuation](#experiment-continuation)
 - [Compatible Devices](#compatible-devices)
 
-## Setup
-Instructions can be found [here](https://github.com/S2-group/android-runner/blob/master/CONTRIBUTING.md). Instructions for specific plugins are included in the plugins' READMEs.
+## The virtual environment
+ ```activate way
+ python -m venv kim //create the virtual environment called kim
+ cd ～ // to the package where you create the virtual environment
+ source kim/bin/activate  //activate your virtual environment 
+ ```
 
 ## Quick Start
 To run an experiment, run:
@@ -39,199 +44,110 @@ python3 android-runner path_to_your_config.json
 ```
 Example configuration files can be found in the subdirectories of the `examples` directory.
 
-## Structure
-### devices.json
-A JSON config that maps devices names to their adb ids for easy reference in config files.
-
-### Experiment Configuration
-Below is a reference to the fields for the experiment configuration. It is not always updated.
-
-**adb_path** *string*
-Path to adb.  Normally don't need to include.  Example path: `/opt/platform-tools/adb`
-
-**monkeyrunner_path** *string*
-Path to Monkeyrunner. Example path: `/opt/platform-tools/bin/monkeyrunner`
-
-**type** *string*
-Type of the experiment. Can be `web`, `native` or `plugintest`
-
-**devices_spec** *string*
-Specify this property inside of your config to specify a `devices.json` outside of the Android Runner repository. For example:
-
- ```js
- {
-   // ....
-   "type": "native",
-   "devices_spec": "/home/user/experiments/devices.json",
-   "devices": {
-     "nexus6p": {}
-   },
-   // ...
- }
- ```
-
-**repetitions** *positive integer*
-Number of times each application is profiled in an experiment.
-
-**clear_cache** *boolean*
-Clears the cache before every run for both web and native experiments.  Default is *false*.
-
-**randomization** *boolean*
-Random order of run execution. Default is *false*.
-
-**duration** *positive integer*
-The duration of each run in milliseconds, default is 0. Setting a too short duration may lead to missing results when running native experiments, it is advised to set a higher duration time if unexpected results appear.
-
-**reset_adb_among_runs** *boolean*
-Restarts the adb connection after each run.  Default is *false*.
-
-**time_between_run** *positive integer*
-The time that the framework waits between 2 successive experiment runs. Default is 0. 
-The **usb_handler** option enables Android Runner to disable the USB connection during each run (while AR is profiling) and enables it after the run. This allows
-devices to charge inbetween runs. In addition, some (energy) profilers can only provide accurate measurements when there is no charge flowing into the battery during profiling. To use this option the device(s) should be connected to ADB using WiFi.
-The option expects a JSON object with "enable_command" and "disable_command" as keys and the corresponding commands as values.
-
-```js
-"usb_handler" : {
-                "enable_command"  : "uhubctl -l 2 -a 1",
-                "disable_command" : "uhubctl -l 2 -a 0" 
-                }
+To run an experiment to detect the performance run:
+```bash
+python3 android-runner android-runner/examples/performance/config.json
 ```
-The example above uses [uhubtl](https://github.com/mvp/uhubctl), an utilitiy that makes it possible to programmatically enable and disable USB port(s). Please note
-uhubctl is only compatible with a selection of devices (see the full list on GitHub). We have used and tested uhubctl primarily on a Raspberry PI 4B. There are a few caveats when using uhubctl on the Raspberry PI 4B:
-- You cannot specify which USB port to enable or disable. Either ALL USB ports are enabled or ALL USB ports are disabled.
-- When a USB block/mass storage device is connected, in addition to your device(s) under test, it is likely that the power will turn back on after a few seconds. This is caused by the fact that some device drivers in the kernel are surprised by USB device being turned off and automatically try to power it back on.
-The easiest way to fix this issue to disconnect the USB block/mass storage. An alternative is to use the `udiskctl`, see [here](https://github.com/mvp/uhubctl#usb-devices-are-not-removed-after-port-power-down-on-linux) for more info.
 
-The **run_stopping_condition** makes it possible to stop the current run when a specific event is triggered. If no event is triggered the run will continue as usual. Right now there are 3 supported events. When the logcat_regex or post_request conditions are used users can also stop the run by using the stop() function call.
+## Methods to imitate human hands to automatically click screen and move the screen
+### tap
+Create the tap function in the interaction.py to auctomatically click the screen to change the API from WebGL to WebGPU
+```interaction.py
 
-1. A regex in the logcat is matched.
+def tap(device:Device, x, y) -> None:  # x is the abscissa y is the ordinate
+    tap_command = f'input tap {x} {y}'
+    print(f'Tapping at coordinates: {tap_command}')
+    device.shell(tap_command)
+    time.sleep(2)
+```
 
-      With the configuration below AR continuously checks if the device's logcat contains an entry matching the "\<expr\>" where "\<expr\>" is a regular expression. If this is the case the run will be stopped. Please note that the `regex` option is required to specify the regex.
-      ```js
-      "run_stopping_condition" : {"logcat_regex" : {"regex" : "<expr>"}}
-      ```
-2. The reception of an HTTP POST request.
+### swip
+Create the swip function in the interaction.py to auctomatically move the screen from one specific coordinate to another
 
-    With the configuration below AR will start a local webserver on port 2222 which accepts HTTP POST requests to stop the run. The payload of these HTTP POST requests are saved to the output directory. The file format will be .json if the Content-type header is `application/json` and .txt otherwise.
-    ```js
-    "run_stopping_condition" : {"post_request" : {"server_port" : 2222}}
-    ```
-    The `server_port` option is optional. If it is not provided the local webserver will be started on port 8000. 
-    
-    For tips on how to use this option in practice consider checking out this [guide](./docs/run_stop_condition_http_post_tips.md).
+```interaction.py
+#def swip(device:Device, x1, y1, x2, y2)-> None:
+    #device.shell('input swip %s %s %s %s' % (x1,y1,x2,y2))  # x1, y1: Starting coordinates of the swipe. x2, y2: Ending coordinates of the swipe.
+    #time.sleep(2)
+```
 
-3. A direct call of the stop() function on an Experiment instance.   
+## Methods to open the subjects automatically
+Step1. Create the function to open the specific  browser and the URL in the interaction.py
 
-    With the configuration below AR allows one to call the stop() method on an AndroidRunner.Experiment instance to stop the current run.  
-    ```js
-    "run_stopping_condition" : {"function" : {}}
-    ```
-    This can be useful in an interaction script when we want to stop the run if some condition holds. The current Experiment instance can be accessed by `args[0]`. An example which stops the run if "certain app" is installed on the device.
-    ```py
-    def main(device, *args, **kwargs):
-      if device.is_installed("certain app"):
-        args[0].stop()
-    ```
+```interactio.py
+def open_chrome_canary(device:Device, url: str) -> None:
+    chrome_canary_package_name = 'com.chrome.canary'
+    device.shell(f'am start -a android.intent.action.VIEW -d {url} -n "chrome_canary_package_name/com.google.android.apps.chrome.Main"')
+    time.sleep(120) #Each website runs for 120 seconds
+def main(device:Device, *args, **kwargs) -> None:
+    urls_to_open = [
+    "https://playground.babylonjs.com/#I6AR8X"      # URLs to open the subjects(30)
+    ]
+    # Open each URL in Chrome Canary
+    for index, url in enumerate(urls_to_open, start=0):
+        print(f"Opening URL: {url}")
+        open_chrome_canary(device, URL)
+        tap(device, 44, 383)
+        tap(device, 160, 1192)
+        tap(device, 640, 1040) # specific coordinate in your device
+        time.sleep(3)
+        swip(device, 100, 700, 1000 ,700)
+        time.sleep(3)
+        swip(device, 1000, 700, 100, 700)# specific coordinate in your device from right to left
+        time.sleep(3)
+        swip(device, 500, 100, 500 ,1000)
+        time.sleep(3)
+        swip(device, 500, 1000, 500, 100)# specific coordinate in your device from down to up
 
-**devices** *JSON*
-A JSON object to describe the devices to be used and their arguments. Below are several examples:
-```js
-  "devices": {
-    "nexus6p": {
-      "root_disable_charging": "True",
-      "logcat_buffer_size" : 64,
-      "charging_disabled_value": 0,
-      "usb_charging_disabled_file": "/sys/class/power_supply/usb/device/charge",
-      "device_settings_reqs": {"e.www.gyroscopetest": ["location_high_accuracy", ...], ...}
+```
+Step2. Add the interaction.py into the config.json
+
+```config.json
+ "interaction": [
+      {
+        "type": "python3",
+        "path": "Scripts/interaction.py"
       }
-    }
-  }
+    ],
 ```
 
-```js
-  "devices": {
-    "nexus6p": {
-      "root_disable_charging": "False"
-    }
-  }
+
+## Methods to detect energy consumption
+We used “Batterymanager” to detect the energy consumption
+Step1： Download the apk（(https://github.com/S2-group/batterymanager-companion/releases)）
+Step2:  Use adb commands install the application in the Android device
+
+```
+adb device //check the connection
+adb install <path to the apk>
+
+```
+Step3:  Run the config.json to detect and save the data
+```bash
+python3 android-runner android-runner/examples/batterymanager/config.json
+```
+## Methods to detect the performance
+Based on the given performance plugin（https://github.com/S2-group/android-runner/blob/master/AndroidRunner/Plugins/android/Android.py）
+two adb statements are added to obtain data on GPU memory usage and CPU Clock speed.
+
+```GPU Memory Usage
+ def get_gpu_memory_usage(device, package_name):
+        GPU_mem_u=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total GPU memory usage:'")
+        res = GPU_mem_u.split(',')[1].strip()
+        return res
+
 ```
 
-```js
-  "devices": {
-    "nexus6p": {}
-  }
+
+```CPU Clock Speed
+ def get_cpu_clockspeed(device):
+        CPU_clock=device.shell(f'cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')
+        return CPU_clock
+
 ```
-The **logcat_buffer_size** option specifies the size of the logcat buffer in KB (1KB = 1024 Bytes) for the given device. This must be an integer between 64 and 262144 (which is 256MB in KB). If this value is not set a default value of 131072KB (128MB) is used.
-
-Note that the last two examples result in the same behaviour.
-
-The **root_disable_charging** option specifies if the devices needs to be root charging disabled by writing the **charging_disabled_value** to the **usb_charging_disabled_file**. Different devices have different values for the **charging_disabled_value** and **usb_charging_disabled_file**, so be careful when using this feature. Also keep an eye out on the battery percentage when using this feature. If the battery dies when the charging is root disabled, it becomes impossible to charge the device via USB.
-
-**device_settings_reqs** can be set to programmatically enable and disable settings on the test device for native apps.  It was added to automate the process of turning on and off location services in a randomized experiment where some applications required it and others that didn't.  Two options available currently: location services with the help of Google and one without.  
-
-**location_high_accuracy** is the option for location services with Google; **location_gps_only** is the other.  More adb commands are likely to be added in the future that work for other sensors and settings.  Turn off location services before the experiment starts.
-
-**WARNING:** Always check the battery settings of the device for the charging status of the device after using root disable charging.
-If the device isn't charging after the experiment is finished, reset the charging file yourself via adb su command line using:
-```shell
-adb su -c 'echo <charging enabled value> > <usb_charging_disabled_file>'
+Run the config.json to detect and save the data
+```bash
+python3 android-runner android-runner/examples/performance/config.json
 ```
-
-**paths** *Array\<String\>*
-The paths to the APKs/URLs to test with. In case of the APKs, this is the path on the local file system.
-
-**apps** *Array\<String\>*
-The package names of the apps to test when the apps are already installed on the device. For example:
-```js
-  "apps": [
-    "org.mozilla.firefox",
-    "com.quicinc.trepn"
-  ]
-```
-
-**browsers** *Array\<String\>*
-*Dependent on type = web*
-The names of browser(s) to use. Currently supported values are `chrome`, `firefox` and `opera`.
-
-**profilers** *JSON*
-A JSON object to describe the profiler plugins to be used and their arguments. Below, an example is found:
-```json
-  "profilers": {
-    "trepn": {
-      "sample_interval": 100,
-      "data_points": ["battery_power", "mem_usage"]
-    },
-    "android": {
-      "sample_interval": 100,
-      "data_points": ["cpu", "mem"],
-      "subject_aggregation": "user_subject_aggregation.py",
-      "experiment_aggregation": "user_experiment_aggregation.py"
-    }
-  }
-```
-Currently, Android Runner contains the plugins listed below, they can immediately be used as for an experiment.
-
-| Name (quality attribute)                                                 | Description                                                                                                                                                                                                                                                                                 |
-|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [batterymanager](./AndroidRunner/Plugins/batterymanager/) (Energy)       | Collects battery level and battery temperature via the Android BatteryManager API using the [batterymanager companion application](https://github.com/S2-group/batterymanager-companion/)                                                                                                   |
-| [batterystats](./AndroidRunner/Plugins/batterystats/) (Energy)  | Uses the `batterystats` utility and estimates energy consumption via the algorithm proposed in [this article](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7884613&casa_token=oEEnY7XOip8AAAAA:AyRZxwboUh55-n9vmW5NGT62mL_hv85T4wPGWlDQGJ36VpF3bcAV1ufvYBhsYxlB0lIMOYJ_Hc-O&tag=1). |
-| [monsoon](./AndroidRunner/Plugins/monsoon/) (Energy)            | Collects energy consumption via the Monsoon hardware profiler and the [Physalia tool](https://github.com/TQRG/physalia).                                                                                                                                                                    |
-| [trepn](./AndroidRunner/Plugins/trepn/) (mixed)                 | Collects data via the Trepn profiler, e.g., power consumption, battery temperature, CPUs frequency.                                                                                                                                                                                         |
-| [mem-CPU](./AndroidRunner/Plugins/android/) (Performance)       | Collects memory and CPU usage via the `cpuinfo` and `meminfo` Android utilities found in ADB's [dumpsys](https://developer.android.com/studio/command-line/dumpsys).                                                                                                                        |
-| [frametimes](./AndroidRunner/Plugins/frametimes/) (Performance) | Collects frame rendering durations and the number of delayed frames with the technique used in [this article](https://dl.acm.org/doi/pdf/10.1145/2897073.2897100?casa_token=jD3bYLV001kAAAAA:OZiAzZFwtvSO-uK3hgWlz6iNVcTt6uYoT1UWroDEGhDHrEBvLbsIl4E13RhAtRK4IaEPd6putLTzzZw).              |
-| [gc](./AndroidRunner/Plugins/trepn/) (Performance)              | Collects the number of garbage collections as in [this article](https://dl.acm.org/doi/pdf/10.1145/2897073.2897100?casa_token=jD3bYLV001kAAAAA:OZiAzZFwtvSO-uK3hgWlz6iNVcTt6uYoT1UWroDEGhDHrEBvLbsIl4E13RhAtRK4IaEPd6putLTzzZw).                                                            |
-| [perfume_js](./AndroidRunner/Plugins/perfume_js/) (Performance)              | Collects performance metrics using the `Perfume.js` library, e.g. FP, FCP, NavigationTiming, storageEstimate and networkInformation.                                                                                                                                                        |
-| [Perfetto](./AndroidRunner/Plugins/perfetto) (mixed) | Collects data using [Perfetto](https://perfetto.dev/) which supports various data sources including memory, CPU, power and more.                                                                                                                                                            |
-> Did you develop a plugin for Android Runner? You can [create a pull request](https://github.com/S2-group/android-runner/pulls/new) in this repository and we will include it!
-
-The profiler section may accept custom aggregation [scripts](https://github.com/S2-group/android-runner/tree/master/AndroidRunner/Plugins/garbagecollection).  If a user specified aggregation script is used then the script should contain a ```bash main(dummy, data_dir, result_file)``` method, as this method is used as the entry point to the script.  The aggregation options are as follows:
-
-**subject_aggregation** *string*
-Specify which subject aggregation to use. The default is the subject aggregation provided by the profiler.
-
-**experiment_aggregation** *string*
-Specify which experiment aggregation to use. The default is the experiment aggregation provided by the profiler.
 
 **scripts** *JSON*
 A JSON list of types and paths of scripts to run. Below is an example:
@@ -259,35 +175,12 @@ Below are the supported types:
   executes after a run completes
 - **after_experiment**
   executes once after the last run
-
-Instead of a path to string it is also possible to provide a JSON object in the following form:
-```js
-    "interaction": [
-      {
-        "type": "python3",
-        "path": "Scripts/interaction.py",
-        "timeout": 500,
-        "logcat_regex": "<expr>"
-      }
-   ]
-```
 - Within the JSON object you can use `"type"` to `"python3"`, `"monkeyrunner"` or, `"monkeyreplay"` depending on the type of script.
   - `"python3"` can be used for a standard python script,
   - `"monkeyreplay"` for running a Monkeyrunner script with the use of the Monkeyrunner framework and 
   - `"monkeyrunner"` can be used to run a Monkeyrunner directly without the entire Monkeyrunner framework. 
 - The `"timeout"` option is to set a maximum run time in miliseconds for the specified script. 
 - The optional option `"logcat_regex"` filters the logcat messages such that it only keeps lines where the log message matches "\<expr\>" where "\<expr\>" is a regular expression.
-
-## Plugin Profilers
-It is possible to write your own profiler and use this with Android Runner. To do so write your profiler in such a way
-that it uses [this profiler.py class](AndroidRunner/Plugins/Profiler.py) as parent class. The device object that is mentioned within the profiler.py class is based on the device.py of this repo. To see what can be done with this object, see the source code [here](AndroidRunner/Device.py).
-
-You can use your own profiler in the same way as the default profilers, you just need to make sure that:
-- The profiler name is the same as your python file and class name.
-- Your python file isn't called 'Profiler.py' as this file will be overwritten.
-- The python file is placed in its own directory inside the directory called 'Plugins'; the name of the directory must be in lowercase
-
-To test your own profiler, you can make use of the 'plugintest' experiment type which can be seen [here](examples/plugintest/).
 
 ## Experiment Continuation
 In case of an error or a user abort during experiment execution, it is possible to continue the experiment if desired. This is possible by using a ```--progress``` tag with the starting command. For example:
