@@ -60,8 +60,8 @@ Create the swip function in the interaction.py to auctomatically move the screen
 
 ```interaction.py
 def swip(device:Device, x1, y1, x2, y2)-> None:
-    #device.shell('input swip %s %s %s %s' % (x1,y1,x2,y2))  # x1, y1: Starting coordinates of the swipe. x2, y2: Ending coordinates of the swipe.
-    #time.sleep(2)
+    device.shell('input swip %s %s %s %s' % (x1,y1,x2,y2))  # x1, y1: Starting coordinates of the swipe. x2, y2: Ending coordinates of the swipe.
+    time.sleep(2)
 ```
 
 ## Methods to open the subjects automatically
@@ -123,7 +123,7 @@ python3 android-runner android-runner/examples/batterymanager/config.json
 Based on the given performance plugin（https://github.com/S2-group/android-runner/blob/master/AndroidRunner/Plugins/android/Android.py）
 two adb statements are added to obtain data on GPU memory usage and CPU Clock speed.
 
-```CPU Usage
+```CPU Usage in Android.py
 def get_cpu_usage(device):
         shell_result = device.shell('dumpsys cpuinfo | grep TOTAL')
         shell_splitted = shell_result.split('%')[0]
@@ -132,7 +132,7 @@ def get_cpu_usage(device):
         return shell_splitted
 ```
 
-```GPU Memory Usage
+```GPU Memory Usage in Android.py
 def get_gpu_memory_usage(device, package_name):
     GPU_mem_u=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total GPU memory usage:'")
     res = GPU_mem_u.split(',')[1].strip()
@@ -140,7 +140,7 @@ def get_gpu_memory_usage(device, package_name):
 
 ```
 
-```CPU Clock Speed
+```CPU Clock Speed in Android.py
 def get_cpu_clockspeed(device):
     CPU_clock=device.shell(f'cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq')
     return CPU_clock
