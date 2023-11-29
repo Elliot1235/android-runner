@@ -14,13 +14,9 @@ As visualized below, Android Runner consists of the following components:
 - **Progress manager**: Keeps track of the execution of each run of the experiment.
 - **Plugin handler**: Provides a set of facilities for managing the profilers and an extension point that third-party developers can use for integrating their own measurement tools into Android Runner.
 
-<p align="center">
-<img src="./documentation/overview.jpg" alt="Overview of Android Runner" width="500"/>
-</p>
-
 # Table of Contents
 - [The virtual environment](#the-virtual-environment)
-- [Quick Start](#quick-start)
+- [Run different browsers in “Native”](#run-different-browsers-in-“Native”)
 - [Methods to imitate human hands to automatically click screen and move the screen](#methods-to-imitate-human-hands-to-automatically-click-screen-and-move-the-screen)
   - [tap function](#tap-function)
   - [swipe function](#swipe-function)
@@ -39,19 +35,20 @@ cd ~  # to the package where you create the virtual environment
 source kim/bin/activate  # activate your virtual environment 
  ```
 
-## Quick Start
-To run an experiment, run:
-```bash
-python3 android-runner path_to_your_config.json
+## Run different browsers in “Native”
+To run a different browser, change the "apps" in the config.json:
+```config.json
+"apps": [
+    "com.android.chrome" #chrome canary's package name
+  ],
 ```
 Example configuration files can be found in the subdirectories of the `examples` directory.
 
 ## Methods to imitate human hands to automatically click screen and move the screen
 ### tap
-Create the tap function in the interaction.py to auctomatically click the screen to change the API from WebGL to WebGPU
+Create the tap function in the interaction.py to automatically click the screen to change the API from WebGL to WebGPU
 ```interaction.py
-
-def tap(device:Device, x, y) -> None:  # x is the abscissa y is the ordinate
+def tap(device:Device, x, y) -> None:   # x is the abscissa y is the ordinate
     tap_command = f'input tap {x} {y}'
     print(f'Tapping at coordinates: {tap_command}')
     device.shell(tap_command)
@@ -133,7 +130,6 @@ def get_gpu_memory_usage(device, package_name):
     return res
 
 ```
-
 
 ```CPU Clock Speed
 def get_cpu_clockspeed(device):
