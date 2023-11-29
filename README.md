@@ -123,6 +123,15 @@ python3 android-runner android-runner/examples/batterymanager/config.json
 Based on the given performance plugin（https://github.com/S2-group/android-runner/blob/master/AndroidRunner/Plugins/android/Android.py）
 two adb statements are added to obtain data on GPU memory usage and CPU Clock speed.
 
+```CPU Usage
+def get_cpu_usage(device):
+        shell_result = device.shell('dumpsys cpuinfo | grep TOTAL')
+        shell_splitted = shell_result.split('%')[0]
+        if '.-' in shell_splitted:
+            shell_splitted = shell_splitted.replace('.-', '.')
+        return shell_splitted
+```
+
 ```GPU Memory Usage
 def get_gpu_memory_usage(device, package_name):
     GPU_mem_u=device.shell(f"dumpsys gfxinfo {package_name} | grep -A1 'Total GPU memory usage:'")
@@ -137,10 +146,12 @@ def get_cpu_clockspeed(device):
     return CPU_clock
 
 ```
+
 Run the config.json to detect and save the data
 ```bash
 python3 android-runner android-runner/examples/performance/config.json
 ```
+
 **scripts** *JSON*
 A JSON list of types and paths of scripts to run. Below is an example:
 ```js
