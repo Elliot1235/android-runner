@@ -16,7 +16,7 @@ As visualized below, Android Runner consists of the following components:
 
 # Table of Contents
 - [The virtual environment](#the-virtual-environment)
-- [Run different browsers in “Native”](#run-different-browsers-in-“Native”)
+- [Run different browsers in “Native”](#run-different-browsers-in-native)
 - [Methods to imitate human hands to automatically click screen and move the screen](#methods-to-imitate-human-hands-to-automatically-click-screen-and-move-the-screen)
   - [tap function](#tap-function)
   - [swipe function](#swipe-function)
@@ -35,7 +35,7 @@ cd ~  # to the package where you create the virtual environment
 source kim/bin/activate  # activate your virtual environment 
  ```
 
-## Run different browsers in “Native”
+## Run different browsers in Native
 To run a different browser, change the "apps" in the config.json:
 ```config.json
 "apps": [
@@ -196,11 +196,8 @@ Note: This flag will be restored to 0 after Android restarts.
 ## Compatible Devices
 The table below shows on which mobile devices Android Runner and its profilers were tested and whether there are any known issues.
 
-| Device/Profiler             	| Trepn                                                	| BatteryStats 	| Perfetto*      	|
+| Device/Profiler             	| Trepn                                                	| BatteryManager| Performance   |
 |-----------------------------	|------------------------------------------------------	|--------------	|----------------	|
-| LG Nexus 5X (Android 8.1.0) 	| No, energy consumption measurements always return 0. 	| Yes          	| N/A 	|
-| Samsung Galaxy J7 Duo       	| No, energy consumption measurements always return 0. 	| Yes          	| N/A 	|
-| Google Pixel 3              	| No, energy consumption measurements always return 0. 	| Yes          	| Yes            	|
 | Google Pixel 5G             	| No, energy consumption measurements always return 0. 	| Yes          	| Yes            	|
 
 
