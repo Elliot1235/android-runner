@@ -28,8 +28,8 @@ As visualized below, Android Runner consists of the following components:
 - [Compatible Devices](#compatible-devices)
 
 ## The virtual environment
+How to create the environment and activate:
 ```bash
-activate way
 python -m venv kim  # create the virtual environment called kim
 cd ~  # to the package where you create the virtual environment
 source kim/bin/activate  # activate your virtual environment 
@@ -42,7 +42,7 @@ To run a different browser, change the "apps" in the config.json:
     "com.android.chrome" #chrome canary's package name
   ],
 ```
-Example configuration files can be found in the subdirectories of the `examples` directory.
+
 
 ## Methods to imitate human hands to automatically click screen and move the screen
 ### tap
@@ -194,7 +194,6 @@ When input_suspend is 0, USB charging is normal.
 Note: This flag will be restored to 0 after Android restarts.
 
 ## Compatible Devices
-The table below shows on which mobile devices Android Runner and its profilers were tested and whether there are any known issues.
 
 | Device/Profiler             	| Trepn                                                	| BatteryManager| Performance   |
 |-----------------------------	|------------------------------------------------------	|--------------	|----------------	|
