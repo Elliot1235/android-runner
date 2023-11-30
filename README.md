@@ -25,7 +25,7 @@ As visualized below, Android Runner consists of the following components:
 - [Methods to detect performance](#methods-to-detect-performance)
 - [Experiment Continuation](#experiment-continuation)
 - [Turn off charging function](#turn-off-charging-function)
-- [Compatible Devices](#compatible-devices)
+- [Test Devices](#test-device)
 
 ## The virtual environment
 How to create the environment and activate:
@@ -204,11 +204,11 @@ When input_suspend is 1, USB charging is disabled, and the current is found to b
 When input_suspend is 0, USB charging is normal.
 Note: This flag will be restored to 0 after Android restarts.
 
-## Compatible Devices
+## Test Device
 
-| Device/Profiler             	| Trepn                                                	| BatteryManager| Performance   |
-|-----------------------------	|------------------------------------------------------	|--------------	|----------------	|
-| Google Pixel 5G             	| No, energy consumption measurements always return 0. 	| Yes          	| Yes            	|
+| Device/Profiler             	| BatteryManager| Performance     |
+|-----------------------------	|--------------	|----------------	|
+| Google Pixel 5G             	| Yes          	| Yes            	|
 
 
 * Please note that Perfetto may not be suited for doing energy consumption measurements, see [https://github.com/S2-group/android-runner/tree/master/AndroidRunner/Plugins/perfetto#limitations-issues--caveats](here).
