@@ -9,12 +9,12 @@ def open_chrome_canary(device:Device, url: str) -> None:
     # Launch Chrome Canary with the specified URL
     device.shell(f'am start -a android.intent.action.VIEW -d {url} -n "chrome_canary_package_name/com.google.android.apps.chrome.Main"')
 
-    time.sleep(15)
+    time.sleep(120)
     #device.shell(f'am force-stop {chrome_canary_package_name}')
 
-#def swip(device:Device, x, y)-> None:
-    #device.shell('input swip %s %s %s %s' % (x, y,x+1,y+1))
-    #time.sleep(2)
+def swip(device:Device, x1, y1，x2, y2)-> None:
+    device.shell('input swip %s %s %s %s' % (x1, y1，x2, y2))
+    time.sleep(2)
 
 def tap(device:Device, x, y) -> None:
     tap_command = f'input tap {x} {y}'
@@ -30,9 +30,7 @@ def main(device:Device, *args, **kwargs) -> None:
 
     # List of URLs to open
     urls_to_open = [
-    "https://playground.babylonjs.com/#I6AR8X",
-    "https://playground.babylonjs.com/#Y3C0HQ#146",
-  
+    "https://playground.babylonjs.com/#I6AR8X",  
     ]
 
     # Open each URL in Chrome Canary
@@ -44,12 +42,17 @@ def main(device:Device, *args, **kwargs) -> None:
         #tap(device, 160, 1192)
         #tap(device, 640, 1040)
         #time.sleep(10)
-        #swip(device, 100, 500)
-       # time.sleep(2)
-       # swip(device, 500, 100)
+        swip(device, 100, 700, 1000 ,700)
+        time.sleep(3)
+        swip(device, 1000, 700, 100, 700)# specific coordinate in your device from right to left
+        time.sleep(3)
+        swip(device, 500, 100, 500 ,1000)
+        time.sleep(3)
+        swip(device, 500, 1000, 500, 100）
+	time.sleep(10)
 
        # time.sleep(3)  # Wait for 4 seconds between each URL
-        #device.shell(f'am force-stop {chrome_canary_package_name}')
+        device.shell(f'am force-stop {chrome_canary_package_name}') # break
     print('a')
     
     
