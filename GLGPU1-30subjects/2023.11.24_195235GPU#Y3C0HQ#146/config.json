@@ -1,0 +1,46 @@
+{
+  "type": "native",
+  "devices": {
+    "pixel5g": {}
+  },
+  "repetitions": 10,
+  "apps": ["com.chrome.canary"],
+  "duration":130000,
+  "profilers": {
+    "Frametimes": {
+      "subject_aggregation" : "default",
+      "sample_interval": 1000
+    },
+    "Android": {
+      "subject_aggregation": "none",
+      "experiment_aggregation" : "none",
+      "sample_interval": 1000,
+      "data_points": ["cpu","mem","Gpu","GPU_mem","cpu_clockspeed"]
+    },
+    "batterymanager": {
+      "experiment_aggregation": "default",
+      "sample_interval": 100,
+      "data_points": [
+        "BATTERY_PROPERTY_CURRENT_NOW", "EXTRA_VOLTAGE", "BATTERY_PROPERTY_CURRENT_AVERAGE", "BATTERY_PROPERTY_CHARGE_COUNTER", "BATTERY_PROPERTY_CAPACITY"],
+      "persistency_strategy": [
+        "adb_log"
+      ]
+    }
+  },
+  "scripts": {
+    "before_experiment": "Scripts/before_experiment.py",
+    "before_run": "Scripts/before_run.py",
+    "after_launch": "Scripts/after_launch.py",
+    "interaction": [
+      {
+        "type": "python3",
+        "path": "Scripts/interaction22.py",
+        "logcat_regex": "a"
+      }
+    ],
+    "before_close": "Scripts/before_close.py",
+    "after_run": "Scripts/after_run.py",
+    "after_experiment": "Scripts/after_experiment.py"
+  },
+  "time_between_run": 10000
+}
