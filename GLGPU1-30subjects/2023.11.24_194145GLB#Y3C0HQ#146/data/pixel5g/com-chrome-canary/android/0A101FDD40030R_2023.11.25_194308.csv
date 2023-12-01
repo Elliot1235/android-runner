@@ -1,0 +1,22 @@
+datetime,cpu,mem,Cpu_mem,GPU_mem,cpu_clockspeed
+Sat Nov 25 18:42:32 UTC 2023,4,181233,19.95 KB (0.00 bytes is purgeable),4.15 MB (102.09 KB is purgeable),1804800
+Sat Nov 25 18:42:33 UTC 2023,4,190580,20.04 KB (0.00 bytes is purgeable),4.16 MB (119.11 KB is purgeable),1804800
+Sat Nov 25 18:42:35 UTC 2023,4,179370,21.23 KB (0.00 bytes is purgeable),4.16 MB (119.11 KB is purgeable),1804800
+Sat Nov 25 18:42:37 UTC 2023,4,178437,29.12 KB (0.00 bytes is purgeable),4.16 MB (119.11 KB is purgeable),1804800
+Sat Nov 25 18:42:38 UTC 2023,4,186027,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),1651200
+Sat Nov 25 18:42:40 UTC 2023,4,214335,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),1804800
+Sat Nov 25 18:42:41 UTC 2023,4,213929,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:43 UTC 2023,4,212821,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),902400
+Sat Nov 25 18:42:45 UTC 2023,4,213450,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:46 UTC 2023,4,215139,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:48 UTC 2023,4,212798,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:49 UTC 2023,4,212970,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:51 UTC 2023,4,212614,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:52 UTC 2023,4,212615,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:54 UTC 2023,4,212622,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:55 UTC 2023,4,212550,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:57 UTC 2023,4,212862,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:42:58 UTC 2023,4,212854,57.30 KB (0.00 bytes is purgeable),4.22 MB (175.91 KB is purgeable),576000
+Sat Nov 25 18:43:00 UTC 2023,4,204842,57.30 KB (0.00 bytes is purgeable),4.61 MB (568.31 KB is purgeable),1804800
+Sat Nov 25 18:43:01 UTC 2023,4,188894,57.30 KB (0.00 bytes is purgeable),4.61 MB (568.31 KB is purgeable),1804800
+Sat Nov 25 18:43:03 UTC 2023,4,191775,57.30 KB (0.00 bytes is purgeable),4.61 MB (568.31 KB is purgeable),1804800
