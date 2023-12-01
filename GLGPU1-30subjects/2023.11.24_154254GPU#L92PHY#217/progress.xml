@@ -1,0 +1,57 @@
+<experiment>
+  <configHash>36e06ed4e5176ac202f5f0d09c103e5e</configHash>
+  <outputDir>/home/elliot/Desktop/android-runner/examples/performance/output/2023.11.24_154254/</outputDir>
+  <runsToRun/>
+  <runsDone>
+    <run runId="0">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>1</runCount>
+    </run>
+    <run runId="1">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>2</runCount>
+    </run>
+    <run runId="2">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>3</runCount>
+    </run>
+    <run runId="3">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>4</runCount>
+    </run>
+    <run runId="4">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>5</runCount>
+    </run>
+    <run runId="5">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>6</runCount>
+    </run>
+    <run runId="6">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>7</runCount>
+    </run>
+    <run runId="7">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>8</runCount>
+    </run>
+    <run runId="8">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>9</runCount>
+    </run>
+    <run runId="9">
+      <device>pixel5g</device>
+      <path>com.chrome.canary</path>
+      <runCount>10</runCount>
+    </run>
+  </runsDone>
+</experiment>
